@@ -1,14 +1,6 @@
 package muyi.weather.util;
-
-
-import java.io.IOException;
-import org.apache.http.HttpEntity;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 @Component
@@ -17,37 +9,49 @@ public class MuyiUtil {
 	@Autowired
 	private MuyiConfig muyiConfig;
 	
-	public String getWeatherFromHttp(){
-		CloseableHttpClient httpClient=HttpClients.createDefault();
-		String url=muyiConfig.getApiUrl()+"?city="+"CN101210103"+"&key="+muyiConfig.getUrlKey();
+	/**
+	 * 访问和风天气API，获取免费版的全部天气信息
+	 * @param String citySeries
+	 * @return String jsonData
+	 */
+	public String getWeatherFromHttp(String citySeries){
+		String url=muyiConfig.getApiUrl()+"?city="+citySeries+"&key="+muyiConfig.getUrlKey();
 		HttpPost httpPost=new HttpPost(url);
-		try {
-			CloseableHttpResponse response=httpClient.execute(httpPost);
-			HttpEntity entity=response.getEntity();
-			String jsonData=EntityUtils.toString(entity);
-			System.out.println("结果为：====="+jsonData);
-			return jsonData;
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally{
-			try {
-				httpClient.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-		return null;
+		return Utility.postHttpRequest(httpPost);
 	}
 	
-	public static void main(String[] args){
-		MuyiUtil aa=new MuyiUtil();
-		aa.getWeatherFromHttp();
-		//System.out.println(muyiConfig.getUrlKey());
+	/**
+	 * 获取省的信息
+	 * @param 
+	 * @return String jsonData
+	 */
+	public String getProvincesFromHttp(){
+		String address = muyiConfig.getQueryCitiesUrl();
+		HttpGet httpGet=new HttpGet(address);
+		return Utility.getHttpRequest(httpGet);
+	}
+	/**
+	 * 获取城市的信息
+	 * @param String provinceId
+	 * @return String jsonData
+	 */
+	public String getCitiesFromHttp(String provinceId){
+		String address = muyiConfig.getQueryCitiesUrl() + provinceId;
+		HttpGet httpGet=new HttpGet(address);
+		return Utility.getHttpRequest(httpGet);
+	}
+	/**
+	 * 获取县级信息
+	 * @param String CityId
+	 * @return String jsonData
+	 */
+	public String getCountiesFromHttp(String provinceId,String CityId){
+		String address = muyiConfig.getQueryCitiesUrl()+ provinceId + "/" + CityId;
+		HttpGet httpGet=new HttpGet(address);
+		return Utility.getHttpRequest(httpGet);
+	}
+	
+	public static String sendHttpResquest(){
+		return "";
 	}
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import muyi.weather.util.MuyiConfig;
 import muyi.weather.util.MuyiUtil;
+import muyi.weather.util.Utility;
 @ComponentScan(basePackages = "muyi.weather")
 @Controller
 @EnableAutoConfiguration
@@ -24,10 +25,16 @@ public class MainController {
 	
 	@RequestMapping("/")
     @ResponseBody
-    String home(HttpServletRequest request) {
-    	String callback=request.getParameter("callback");   	   	
-    	String weatherdata=muyiutil.getWeatherFromHttp();   	 
-        return callback+"("+weatherdata+")";
+    String home(HttpServletRequest request) {  	   	
+    	String weatherdata=muyiutil.getWeatherFromHttp("CN101210103");   	 
+        return Utility.jsonp(request,weatherdata);
+    }
+	
+	@RequestMapping("/province")
+    @ResponseBody
+    String provinces(HttpServletRequest request) {  	   	
+    	String weatherdata=muyiutil.getProvincesFromHttp();   	 
+        return Utility.jsonp(request,weatherdata);
     }
 
     public static void main(String[] args) throws Exception {

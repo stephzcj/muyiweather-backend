@@ -1,10 +1,13 @@
-package muyi.weather.util;
+package muyi.weather.service;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import muyi.weather.util.MuyiConfig;
+import muyi.weather.util.Utility;
 @Component
-public class MuyiUtil {
+public class HttpDataService {
 	
 	@Autowired
 	private MuyiConfig muyiConfig;
@@ -45,8 +48,8 @@ public class MuyiUtil {
 	 * @param String CityId
 	 * @return String jsonData
 	 */
-	public String getCountiesFromHttp(String provinceId,String CityId){
-		String address = muyiConfig.getQueryCitiesUrl()+ provinceId + "/" + CityId;
+	public String getCountiesFromHttp(String provinceId,String cityId){
+		String address = muyiConfig.getQueryCitiesUrl()+ provinceId + "/" + cityId;
 		HttpGet httpGet=new HttpGet(address);
 		return Utility.getHttpRequest(httpGet);
 	}

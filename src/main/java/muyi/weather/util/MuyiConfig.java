@@ -14,7 +14,14 @@ public class MuyiConfig {
 	private String apiUrl;
 	private String urlKey;
 	private String queryCitiesUrl;
+	private String crossDomainUrl;
 	
+	public String getCrossDomainUrl() {
+		return crossDomainUrl;
+	}
+	public void setCrossDomainUrl(String crossDomainUrl) {
+		this.crossDomainUrl = crossDomainUrl;
+	}
 	public String getQueryCitiesUrl() {
 		return queryCitiesUrl;
 	}

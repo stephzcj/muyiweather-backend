@@ -15,7 +15,15 @@ public class MuyiConfig {
 	private String urlKey;
 	private String queryCitiesUrl;
 	private String crossDomainUrl;
+	private String backgroundImgUrl;
 	
+	
+	public String getBackgroundImgUrl() {
+		return backgroundImgUrl;
+	}
+	public void setBackgroundImgUrl(String backgroundImgUrl) {
+		this.backgroundImgUrl = backgroundImgUrl;
+	}
 	public String getCrossDomainUrl() {
 		return crossDomainUrl;
 	}

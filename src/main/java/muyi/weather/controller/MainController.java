@@ -27,7 +27,6 @@ public class MainController {
     @ResponseBody
     String home(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse) {  	   	
     	String weatherdata=httpDataService.getWeatherFromHttp(httpServletRequest.getParameter("cityId")); 
-    	System.out.println(httpServletRequest.getParameter("test"));
         return utility.crossDomain(httpServletResponse, weatherdata);
     }
 	

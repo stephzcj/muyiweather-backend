@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.google.gson.Gson;
 import muyi.weather.service.HttpDataService;
 import muyi.weather.util.MuyiConfig;
 import muyi.weather.util.Utility;
@@ -51,6 +53,17 @@ public class HttpDataController {
     String counties(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse) {  	   	
     	String data=httpDataService.getCountiesFromHttp(httpServletRequest.getParameter("provinceId"),httpServletRequest.getParameter("cityId"));   	 
         return utility.crossDomain(httpServletResponse,data);
+    }
+	/**
+	 * 获取背景图URL
+	 * @param httpServletRequest
+	 * @param httpServletResponse
+	 * @return
+	 */
+	@RequestMapping(value="/bgUrl",method=RequestMethod.GET)
+    String backgroundUrl(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse) {  	   	
+    	String data=httpDataService.getBackgroundImgUrl();
+        return new Gson().toJson(utility.crossDomain(httpServletResponse,data))  ;
     }
 	
 }

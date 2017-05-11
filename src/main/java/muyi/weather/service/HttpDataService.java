@@ -53,8 +53,14 @@ public class HttpDataService {
 		HttpGet httpGet=new HttpGet(address);
 		return Utility.getHttpRequest(httpGet);
 	}
-	
-	public static String sendHttpResquest(){
-		return "";
+	/**
+	 * 获取背景图URL
+	 * @param 
+	 * @return String jsonData
+	 */
+	public String getBackgroundImgUrl(){
+		String address=muyiConfig.getBackgroundImgUrl();
+		HttpGet httpGet=new HttpGet(address);
+		return Utility.getHttpRequest(httpGet);
 	}
 }

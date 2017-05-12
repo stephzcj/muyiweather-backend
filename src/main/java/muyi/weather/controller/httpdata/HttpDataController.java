@@ -2,25 +2,34 @@ package muyi.weather.controller.httpdata;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.google.gson.Gson;
 import muyi.weather.service.HttpDataService;
-import muyi.weather.util.MuyiConfig;
 import muyi.weather.util.Utility;
 
 @RestController
 public class HttpDataController {
 	@Autowired
-	private MuyiConfig muyiConfig;
-	@Autowired
 	private Utility utility;
 	@Autowired
 	private HttpDataService httpDataService;
+	
+	/**
+	 * HOME页面访问
+	 * @param httpServletRequest
+	 * @param httpServletResponse
+	 * @return
+	 */
+	@RequestMapping(value="/",method=RequestMethod.POST)
+    @ResponseBody
+    String home(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse) {  	   	
+    	String weatherdata=httpDataService.getWeatherFromHttp(httpServletRequest.getParameter("cityId")); 
+        return utility.crossDomain(httpServletResponse, weatherdata);
+    }
 	/**
 	 * 获取省级数据
 	 * @param httpServletRequest

@@ -13,10 +13,14 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 @Component
 public class Utility {
+	
+	private static Logger logger=LogManager.getLogger(Utility.class);
 	@Autowired
 	private MuyiConfig muyiConfig;
 	public static String postHttpRequest(HttpPost httpPost){
@@ -25,7 +29,7 @@ public class Utility {
 			CloseableHttpResponse response=httpClient.execute(httpPost);
 			HttpEntity entity=response.getEntity();
 			String jsonData=EntityUtils.toString(entity);
-			System.out.println(jsonData);
+			logger.info(jsonData);
 			return jsonData;
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
@@ -41,7 +45,7 @@ public class Utility {
 			CloseableHttpResponse response=httpClient.execute(httpget);
 			HttpEntity entity=response.getEntity();
 			String jsonData=EntityUtils.toString(entity);
-			System.out.println(jsonData);
+			logger.info(jsonData);
 			return jsonData;
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();

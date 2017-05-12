@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT" follow="true">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>
+		</Console>
+		<!-- 按日期每天生成log文件 -->
+		<RollingFile name="RollingFile" fileName="/Users/zhongchunjie/Documents/AndroidDemo/log/muyiWeather/muyiweather.log"
+			filePattern="/Users/zhongchunjie/Documents/AndroidDemo/log/muyiWeather/muyiweather-%d{yyyy-MM-dd}.log">
+			<PatternLayout pattern="%d{yyyy.MM.dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" />
+			</Policies>
+			<!-- log文件只打印error级别信息 -->
+			<!-- <Filters>
+				<ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY" />
+			</Filters> -->
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<!-- 输出info级别信息 -->
+		<Root level="info">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFile" />
+		</Root>
+	</Loggers>
+</Configuration>

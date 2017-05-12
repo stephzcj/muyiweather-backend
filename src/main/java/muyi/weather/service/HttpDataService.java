@@ -2,11 +2,11 @@ package muyi.weather.service;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import muyi.weather.util.MuyiConfig;
 import muyi.weather.util.Utility;
-@Component
+@Service
 public class HttpDataService {
 	
 	@Autowired
